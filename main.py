@@ -4,53 +4,207 @@ from funciones.lectura import leer_csv
 from funciones.menu import mostrar_menu
 from funciones.ordenar import ordenar_paises
 
+"""
+Funciones internas utilizadas en este archivo:
+    isinstance(objeto, tipo): Sirve para verificar el tipo de dato de una variable u objeto
+    raise: Sirve para lanzar una excepción (error) de forma manual
+"""
+
 def main():
+    """Función principal del programa de gestión de países."""
     paises = leer_csv("csv/paises_mundo.csv")
+    
     if not paises:
         print("No se pudieron cargar datos. Revisa el archivo CSV.")
         return
 
     while True:
-        opcion = mostrar_menu()
+        try:
+            opcion = mostrar_menu()
+            opcion_int = int(opcion) if opcion.isdigit() else 0
 
-        if opcion == "1":
-            nombre = input("Ingrese el nombre del país: ")
-            resultados = buscar_pais(paises, nombre)
-            print(resultados if resultados else "No se encontraron coincidencias.")
+            match opcion_int:
+                case 1:
+                    try:
+                        nombre = input("Ingrese el nombre del país: ")
+                        
+                        if not nombre.strip():
+                            raise ValueError("El nombre no puede estar vacío")
+                        
+                        resultados = buscar_pais(paises, nombre)
+                        
+                        if resultados:
+                            print(f"\n--- Se encontraron {len(resultados)} resultado(s) ---")
+                            for pais in resultados:
+                                print(f"  • {pais['nombre']} - {pais['continente']}")
+                        else:
+                            print("No se encontraron coincidencias.")
+                    
+                    except ValueError as e:
+                        print(f"Error: {e}")
+                    except Exception as e:
+                        print(f"Error inesperado: {e}")
 
-        elif opcion == "2":
-            continente = input("Ingrese el continente: ")
-            resultados = filtrar_por_continente(paises, continente)
-            print(resultados if resultados else "No hay países en ese continente.")
+                case 2:
+                    try:
+                        continente = input("Ingrese el continente: ")
+                        
+                        if not continente.strip():
+                            raise ValueError("El continente no puede estar vacío")
+                        
+                        resultados = filtrar_por_continente(paises, continente)
+                        
+                        if resultados:
+                            print(f"\n--- Países en {continente}: {len(resultados)} ---")
+                            for pais in resultados:
+                                print(f"  • {pais['nombre']}")
+                        else:
+                            print(f"No hay países en el continente '{continente}'.")
+                    
+                    except ValueError as e:
+                        print(f"Error: {e}")
+                    except Exception as e:
+                        print(f"Error inesperado: {e}")
 
-        elif opcion == "3":
-            minimo = int(input("Ingrese población mínima: "))
-            maximo = int(input("Ingrese población máxima: "))
-            resultados = filtrar_por_rango(paises, "poblacion", minimo, maximo)
-            print(resultados if resultados else "No se encontraron países en ese rango.")
+                case 3:
+                    try:
+                        minimo_str = input("Ingrese población mínima: ")
+                        maximo_str = input("Ingrese población máxima: ")
+                        
+                        if not minimo_str.strip() or not maximo_str.strip():
+                            raise ValueError("Los valores no pueden estar vacíos")
+                        
+                        if not minimo_str.isdigit() or not maximo_str.isdigit():
+                            raise ValueError("Debe ingresar números enteros positivos")
+                        
+                        minimo = int(minimo_str)
+                        maximo = int(maximo_str)
+                        
+                        if minimo < 0 or maximo < 0:
+                            raise ValueError("Los valores deben ser positivos")
+                        
+                        if minimo > maximo:
+                            raise ValueError("El valor mínimo no puede ser mayor que el máximo")
+                        
+                        resultados = filtrar_por_rango(paises, "poblacion", minimo, maximo)
+                        
+                        if resultados:
+                            print(f"\n--- Países con población entre {minimo:,} y {maximo:,}: {len(resultados)} ---")
+                            for pais in resultados:
+                                print(f"  • {pais['nombre']}: {pais['poblacion']:,} habitantes")
+                        else:
+                            print("No se encontraron países en ese rango de población.")
+                    
+                    except ValueError as e:
+                        print(f"Error: {e}")
+                    except Exception as e:
+                        print(f"Error inesperado: {e}")
 
-        elif opcion == "4":
-            minimo = int(input("Ingrese superficie mínima: "))
-            maximo = int(input("Ingrese superficie máxima: "))
-            resultados = filtrar_por_rango(paises, "superficie", minimo, maximo)
-            print(resultados if resultados else "No se encontraron países en ese rango.")
+                case 4:
+                    try:
+                        minimo_str = input("Ingrese superficie mínima (km²): ")
+                        maximo_str = input("Ingrese superficie máxima (km²): ")
+                        
+                        if not minimo_str.strip() or not maximo_str.strip():
+                            raise ValueError("Los valores no pueden estar vacíos")
+                        
+                        if not minimo_str.isdigit() or not maximo_str.isdigit():
+                            raise ValueError("Debe ingresar números enteros positivos")
+                        
+                        minimo = int(minimo_str)
+                        maximo = int(maximo_str)
+                        
+                        if minimo < 0 or maximo < 0:
+                            raise ValueError("Los valores deben ser positivos")
+                        
+                        if minimo > maximo:
+                            raise ValueError("El valor mínimo no puede ser mayor que el máximo")
+                        
+                        resultados = filtrar_por_rango(paises, "superficie", minimo, maximo)
+                        
+                        if resultados:
+                            print(f"\n--- Países con superficie entre {minimo:,} y {maximo:,} km²: {len(resultados)} ---")
+                            for pais in resultados:
+                                print(f"  • {pais['nombre']}: {pais['superficie']:,} km²")
+                        else:
+                            print("No se encontraron países en ese rango de superficie.")
+                    
+                    except ValueError as e:
+                        print(f"Error: {e}")
+                    except Exception as e:
+                        print(f"Error inesperado: {e}")
 
-        elif opcion == "5":
-            clave = input("Ordenar por (nombre/poblacion/superficie): ").lower()
-            desc = input("¿Descendente? (s/n): ").lower() == "s"
-            resultados = ordenar_paises(paises, clave, desc)
-            for p in resultados:
-                print(p)
+                case 5:
+                    try:
+                        print("\nOpciones de ordenamiento:")
+                        print("  - nombre")
+                        print("  - poblacion")
+                        print("  - superficie")
+                        
+                        clave = input("Ordenar por: ").lower().strip()
+                        
+                        if not clave:
+                            raise ValueError("Debe ingresar una opción de ordenamiento")
+                        
+                        claves_validas = ["nombre", "poblacion", "superficie"]
+                        if clave not in claves_validas:
+                            raise ValueError(f"Opción inválida. Use: {', '.join(claves_validas)}")
+                        
+                        desc_input = input("¿Descendente? (s/n): ").lower().strip()
+                        
+                        if desc_input not in ["s", "n"]:
+                            raise ValueError("Debe ingresar 's' para sí o 'n' para no")
+                        
+                        desc = desc_input == "s"
+                        
+                        resultados = ordenar_paises(paises, clave, desc)
+                        
+                        if resultados:
+                            orden = "descendente" if desc else "ascendente"
+                            print(f"\n--- Países ordenados por {clave} ({orden}) ---")
+                            for i, pais in enumerate(resultados[:10], 1):  # Mostrar solo los primeros 10
+                                valor = pais[clave]
+                                if isinstance(valor, int):
+                                    print(f"  {i}. {pais['nombre']}: {valor:,}")
+                                else:
+                                    print(f"  {i}. {pais['nombre']}: {valor}")
+                            
+                            if len(resultados) > 10:
+                                print(f"  ... y {len(resultados) - 10} más")
+                        else:
+                            print("\nNo hay países para ordenar.")
+                    
+                    except ValueError as e:
+                        print(f"Error: {e}")
+                    except Exception as e:
+                        print(f"Error inesperado: {e}")
 
-        elif opcion == "6":
-            mostrar_estadisticas(paises)
+                case 6:
+                    try:
+                        mostrar_estadisticas(paises)
+                    except Exception as e:
+                        print(f"Error al mostrar estadísticas: {e}")
 
-        elif opcion == "0":
-            print("Saliendo del programa...")
+                case 7:
+                    print("\n¡Gracias por usar el programa!")
+                    print("Saliendo...")
+                    break
+
+                case _:
+                    print('\nLa opción ingresada no es válida')
+        
+        except ValueError as e:
+            print(f"Error: {e}")
+        except KeyboardInterrupt:
+            print("\n\nPrograma interrumpido por el usuario (Ctrl+C)")
+            print("Saliendo...")
             break
+        except Exception as e:
+            print(f"Error inesperado: {e}")
+        
+        # Pausa para que el usuario vea los resultados
+        input("\nPresione Enter para continuar...")
 
-        else:
-            print("Opción inválida, intente nuevamente.")
 
-
-main()
+if __name__ == "__main__":
+    main()

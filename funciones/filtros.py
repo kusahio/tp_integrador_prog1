@@ -1,14 +1,85 @@
+"""
+Funciones internas utilizadas en este archivo:
+    isinstance(objeto, tipo): Sirve para verificar el tipo de dato de una variable u objeto
+    raise: Sirve para lanzar una excepción (error) de forma manual
+"""
+
+# Busca países por coincidencia parcial o exacta
 def buscar_pais(paises, nombre):
-    """Busca países por coincidencia parcial o exacta."""
-    resultados = [p for p in paises if nombre.lower() in p["nombre"].lower()]
-    return resultados
+    try:
+        if not isinstance(paises, list):
+            raise TypeError("El parámetro 'paises' debe ser una lista")
+        if not isinstance(nombre, str):
+            raise TypeError("El parámetro 'nombre' debe ser un string")
+        
+        resultados = [p for p in paises if nombre.lower() in p["nombre"].lower()]
+        return resultados
+    
+    # Verifica que el nombre de la llave exista
+    except KeyError:
+        print("Error: Algunos países no tienen el campo 'nombre'")
+        return []
+    
+    # Verifica que el nombre sea un string válido
+    except AttributeError:
+        print("Error: El nombre debe ser un string válido")
+        return []
+    
+    # Captura cualquier otro error genérico no previsto
+    except Exception as e:
+        print(f"Error inesperado en buscar_pais: {e}")
+        return []
 
-
+#Filtra países por continente
 def filtrar_por_continente(paises, continente):
-    """Filtra países por continente."""
-    return [p for p in paises if p["continente"].lower() == continente.lower()]
+    try:
+        if not isinstance(paises, list):
+            raise TypeError("El parámetro 'paises' debe ser una lista")
+        if not isinstance(continente, str):
+            raise TypeError("El parámetro 'continente' debe ser un string")
+        
+        return [p for p in paises if p["continente"].lower() == continente.lower()]
+    
+    # Verifica que el nombre de la llave exista
+    except KeyError:
+        print("Error: Algunos países no tienen el campo 'continente'")
+        return []
+    
+    # Verifica que el continente sea un string válido
+    except AttributeError:
+        print("Error: El continente debe ser un string válido")
+        return []
+    
+    # Captura cualquier otro error genérico no previsto
+    except Exception as e:
+        print(f"Error inesperado en filtrar_por_continente: {e}")
+        return []
 
-
+# Filtra países por un rango de valores (población o superficie)
 def filtrar_por_rango(paises, campo, minimo, maximo):
-    """Filtra países por un rango de valores (población o superficie)."""
-    return [p for p in paises if minimo <= p[campo] <= maximo]
+    try:
+        if not isinstance(paises, list):
+            raise TypeError("El parámetro 'paises' debe ser una lista")
+        if not isinstance(campo, str):
+            raise TypeError("El parámetro 'campo' debe ser un string")
+        if not isinstance(minimo, (int, float)) or not isinstance(maximo, (int, float)):
+            raise TypeError("Los valores mínimo y máximo deben ser numéricos")
+        if minimo > maximo:
+            raise ValueError("El valor mínimo no puede ser mayor que el máximo")
+        
+        return [p for p in paises if minimo <= p[campo] <= maximo]
+    
+    # Verifica que el nombre de la llave exista
+    except KeyError:
+        print(f"Error: Algunos países no tienen el campo '{campo}'")
+        return []
+    
+    # Si el valor del campo no es numérico y no se puede comparar o si los parámetros no son del tipo correcto
+    except TypeError as e:
+        print(f"Error de tipo: {e}")
+        return []
+    
+    # Captura cualquier otro error genérico no previsto
+    except Exception as e:
+        print(f"Error inesperado en filtrar_por_rango: {e}")
+        return []
