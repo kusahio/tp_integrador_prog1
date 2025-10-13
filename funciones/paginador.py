@@ -87,9 +87,8 @@ def mostrar_con_paginacion(resultados, items_por_pagina=10, titulo='Resultados',
             # Solo mostrar 'Anterior' si NO estamos en la primera página
             if pagina_actual > 1:
                 controles.append('A = Anterior')
+                controles.append('[Número] = Ir a página')
             
-            # Estos controles están disponibles siempre
-            controles.append('[Número] = Ir a página')
             controles.append('S = Salir')
             
             # Unir todos los controles con ' | ' como separador

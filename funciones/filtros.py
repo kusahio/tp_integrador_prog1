@@ -1,8 +1,16 @@
+import unicodedata
+
 """
 Funciones internas utilizadas en este archivo:
     isinstance(objeto, tipo): Sirve para verificar el tipo de dato de una variable u objeto
     raise: Sirve para lanzar una excepción (error) de forma manual
 """
+
+def quitar_tildes(texto):
+    return ''.join(
+        c for c in unicodedata.normalize('NFD', texto)
+        if unicodedata.category(c) != 'Mn'
+    )
 
 # Busca países por coincidencia parcial o exacta
 def buscar_pais(paises, nombre):
@@ -12,7 +20,7 @@ def buscar_pais(paises, nombre):
         if not isinstance(nombre, str):
             raise TypeError("El parámetro 'nombre' debe ser un string")
         
-        resultados = [p for p in paises if nombre.lower() in p["nombre"].lower()]
+        resultados = [pais for pais in paises if quitar_tildes(nombre.lower()) in quitar_tildes(pais["nombre"].lower())]
         return resultados
     
     # Verifica que el nombre de la llave exista
@@ -38,7 +46,7 @@ def filtrar_por_continente(paises, continente):
         if not isinstance(continente, str):
             raise TypeError("El parámetro 'continente' debe ser un string")
         
-        return [p for p in paises if p["continente"].lower() == continente.lower()]
+        return [pais for pais in paises if quitar_tildes(pais["continente"].lower()) == quitar_tildes(continente.lower())]
     
     # Verifica que el nombre de la llave exista
     except KeyError:
@@ -67,7 +75,7 @@ def filtrar_por_rango(paises, campo, minimo, maximo):
         if minimo > maximo:
             raise ValueError("El valor mínimo no puede ser mayor que el máximo")
         
-        return [p for p in paises if minimo <= p[campo] <= maximo]
+        return [pais for pais in paises if minimo <= pais[campo] <= maximo]
     
     # Verifica que el nombre de la llave exista
     except KeyError:
