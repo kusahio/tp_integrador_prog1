@@ -18,7 +18,7 @@ def leer_csv(ruta_archivo):
         with open(ruta_archivo, encoding='utf-8') as archivo:
             lector = csv.DictReader(archivo)
             
-            for fila in lector:
+            for numero_fila, fila in enumerate(lector, start=2):  # start=2 porque la fila 1 es el encabezado
                 try:
                     pais = {
                         "nombre": fila["nombre"].strip(),
@@ -27,21 +27,16 @@ def leer_csv(ruta_archivo):
                         "continente": fila["continente"].strip()
                     }
                     paises.append(pais)
-                except (KeyError, ValueError) as e:
-                    print(f"Error en fila: {e}")
+                except KeyError as e:
+                    print(f"\nAVISO: Falta el campo {e} en la fila {numero_fila}")
+                except ValueError as e:
+                    print(f"\nAVISO: Valor inválido en la fila {numero_fila} - {e}")
         
-        print(f"Se cargaron {len(paises)} países")
+        print(f"Se cargaron {len(paises)} países correctamente")
     
-    # Maneja el error en el caso de que no encuentre el archivo
-    except FileNotFoundError as e:
-        print(f"Error: {e}")
-
-    # Maneja errores de permisos de archivo o carpeta
-    except PermissionError:
-        print(f"Error: Sin permisos para leer {ruta_archivo}")
-
-    # Maneja cualquier otro error genérico inesperado
+    except (FileNotFoundError, PermissionError) as e:
+        print(f"\nAVISO: {e}")
     except Exception as e:
-        print(f"Error inesperado: {e}")
+        print(f"\nAVISO: {e}")
     
     return paises

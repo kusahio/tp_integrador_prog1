@@ -46,22 +46,6 @@ def ordenar_paises(paises, clave, descendente=False):
         
         return paises_ordenados
     
-    # Maneja el error en caso de que no sea el tipo esperado
-    except TypeError as e:
-        print(f"Error de tipo: {e}")
-        return []
-    
-    # Valores lógicamente incorrectos (clave vacía, clave inválida)
-    except ValueError as e:
-        print(f"Error de valor: {e}")
-        return []
-    
-    # Maneja el error en caso de que algún país no tenga la clave requerida 
-    except KeyError as e:
-        print(f"Error: Falta la clave {e} en algún país")
-        return []
-    
-    # Maneja errores genéricos no previstos
-    except Exception as e:
-        print(f"Error inesperado al ordenar países: {e}")
+    except (TypeError, ValueError, KeyError, Exception) as e:
+        print(f"\nAviso: {e}")
         return []

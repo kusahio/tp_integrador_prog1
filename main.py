@@ -63,7 +63,7 @@ def main():
             print(f"Error inesperado: {e}")
         
         # Pausa para que el usuario vea los resultados
-        input("\nPresione Enter para continuar...")
+        #input("\nPresione Enter para continuar...")
 
 
 if __name__ == "__main__":

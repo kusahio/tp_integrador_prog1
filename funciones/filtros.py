@@ -23,19 +23,11 @@ def buscar_pais(paises, nombre):
         resultados = [pais for pais in paises if quitar_tildes(nombre.lower()) in quitar_tildes(pais["nombre"].lower())]
         return resultados
     
-    # Verifica que el nombre de la llave exista
     except KeyError:
-        print("Error: Algunos países no tienen el campo 'nombre'")
+        print("\nAVISO: Algunos países no tienen el campo 'nombre'")
         return []
-    
-    # Verifica que el nombre sea un string válido
-    except AttributeError:
-        print("Error: El nombre debe ser un string válido")
-        return []
-    
-    # Captura cualquier otro error genérico no previsto
-    except Exception as e:
-        print(f"Error inesperado en buscar_pais: {e}")
+    except (TypeError, AttributeError) as e:
+        print(f"\nAVISO: {e}")
         return []
 
 #Filtra países por continente
@@ -48,19 +40,12 @@ def filtrar_por_continente(paises, continente):
         
         return [pais for pais in paises if quitar_tildes(pais["continente"].lower()) == quitar_tildes(continente.lower())]
     
-    # Verifica que el nombre de la llave exista
     except KeyError:
-        print("Error: Algunos países no tienen el campo 'continente'")
+        print("\nAVISO: Algunos países no tienen el campo 'continente'")
         return []
     
-    # Verifica que el continente sea un string válido
-    except AttributeError:
-        print("Error: El continente debe ser un string válido")
-        return []
-    
-    # Captura cualquier otro error genérico no previsto
-    except Exception as e:
-        print(f"Error inesperado en filtrar_por_continente: {e}")
+    except (TypeError, AttributeError) as e:
+        print(f"\nAVISO: {e}")
         return []
 
 # Filtra países por un rango de valores (población o superficie)
@@ -70,24 +55,15 @@ def filtrar_por_rango(paises, campo, minimo, maximo):
             raise TypeError("El parámetro 'paises' debe ser una lista")
         if not isinstance(campo, str):
             raise TypeError("El parámetro 'campo' debe ser un string")
-        if not isinstance(minimo, (int, float)) or not isinstance(maximo, (int, float)):
-            raise TypeError("Los valores mínimo y máximo deben ser numéricos")
         if minimo > maximo:
             raise ValueError("El valor mínimo no puede ser mayor que el máximo")
         
         return [pais for pais in paises if minimo <= pais[campo] <= maximo]
     
-    # Verifica que el nombre de la llave exista
     except KeyError:
-        print(f"Error: Algunos países no tienen el campo '{campo}'")
+        print(f"\nAVISO: Algunos países no tienen el campo '{campo}'")
         return []
-    
-    # Si el valor del campo no es numérico y no se puede comparar o si los parámetros no son del tipo correcto
-    except TypeError as e:
-        print(f"Error de tipo: {e}")
-        return []
-    
-    # Captura cualquier otro error genérico no previsto
-    except Exception as e:
-        print(f"Error inesperado en filtrar_por_rango: {e}")
+
+    except (TypeError, ValueError) as e:
+        print(f"\nAVISO: {e}")
         return []
