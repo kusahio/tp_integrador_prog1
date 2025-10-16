@@ -55,8 +55,8 @@ def filtrar_por_rango(paises, campo, minimo, maximo):
             raise TypeError("El parámetro 'paises' debe ser una lista")
         if not isinstance(campo, str):
             raise TypeError("El parámetro 'campo' debe ser un string")
-        if minimo > maximo:
-            raise ValueError("El valor mínimo no puede ser mayor que el máximo")
+        # if minimo > maximo:
+        #     raise ValueError("El valor mínimo no puede ser mayor que el máximo")
         
         return [pais for pais in paises if minimo <= pais[campo] <= maximo]
     

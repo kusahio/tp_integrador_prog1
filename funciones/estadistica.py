@@ -19,10 +19,10 @@ def mostrar_estadisticas(paises):
         
         # Mostrar estadísticas básicas
         print('\n==== ESTADÍSTICAS ==== ')
-        print(f'- País con mayor población: {pais_mayor_pob["nombre"]} ({pais_mayor_pob["poblacion"]:,})')
-        print(f'- País con menor población: {pais_menor_pob["nombre"]} ({pais_menor_pob["poblacion"]:,})')
-        print(f'- Promedio de población: {promedio_pob:,.0f}')
-        print(f'- Promedio de superficie: {promedio_sup:,.0f}')
+        print(f'- País con mayor población  : {pais_mayor_pob["nombre"]} ({pais_mayor_pob["poblacion"]:,})')
+        print(f'- País con menor población  : {pais_menor_pob["nombre"]} ({pais_menor_pob["poblacion"]:,})')
+        print(f'- Promedio de población     : {promedio_pob:,.0f}')
+        print(f'- Promedio de superficie    : {promedio_sup:,.0f}')
         
         # Cantidad de países por continente
         continentes = {}
@@ -41,4 +41,4 @@ def mostrar_estadisticas(paises):
     except ZeroDivisionError:
         print('\nAVISO: No hay países para calcular promedios')
     except Exception as e:
-        print(f'\nAVISO inesperado: {e}')
+        print(f'\nAVISO: {e}')

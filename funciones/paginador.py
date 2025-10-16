@@ -23,10 +23,10 @@ def formatear_pais(pais, index, tipo_formato='simple'):
         
         # Formato completo con toda la información
         elif tipo_formato == 'completo':
-            return (f'  {index}. {pais["nombre"]}\n'
-                   f'      Continente: {pais["continente"]}\n'
-                   f'      Población: {pais["poblacion"]:,} habitantes\n'
-                   f'      Superficie: {pais["superficie"]:,} km²')
+            return (f'  {index}. {pais["nombre"]}\n',
+                    f'      Continente: {pais["continente"]}\n',
+                    f'      Población: {pais["poblacion"]:,} habitantes\n',
+                    f'      Superficie: {pais["superficie"]:,} km²')
         
         # Formato simple (por defecto)
         else:

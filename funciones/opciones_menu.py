@@ -15,12 +15,15 @@ def preguntar_si_no(mensaje):
         print('Respuesta inválida. Ingrese "s" para sí o "n" para no.')
 
 def opcion_buscar_pais(paises):
+    # Opcion 1: Búsqueda parcial con nombre
     while True:
         try:
             nombre = input('Ingrese el nombre del país: ').strip()
             
             if not nombre:
                 raise ValueError('El nombre no puede estar vacío')
+            elif any(caracter.isdigit() for caracter in nombre):
+                raise TypeError('El nombre no puede contener números')
             
             resultados = buscar_pais(paises, nombre)
             
@@ -29,7 +32,7 @@ def opcion_buscar_pais(paises):
             else:
                 print('No se encontraron coincidencias.')
         
-        except Exception as e:
+        except (ValueError, TypeError) as e:
             print(f'\nAVISO: {e}. Intente nuevamente.\n')
             continue
 
@@ -44,6 +47,8 @@ def opcion_filtrar_continente(paises):
             
             if not continente:
                 raise ValueError('El continente no puede estar vacío')
+            elif any(caracter.isdigit() for caracter in continente):
+                raise TypeError('El continente no puede contener números')
             
             resultados = filtrar_por_continente(paises, continente)
             
