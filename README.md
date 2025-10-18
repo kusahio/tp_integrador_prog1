@@ -476,14 +476,14 @@ Seleccione una opción: s
 
 **Integrante 1:** Camilo Illanes  
 - Estructura general del proyecto  
-- Módulos `lectura.py`, `filtros.py`, `menu.py`, `paginador.py`  
+- Módulos `lectura.py`, `filtros.py`, `menu.py`, `paginador.py`
+- Sistema de paginación interactivo con navegación completa
 - Pruebas de funcionamiento y validaciones
 - Sistema de búsqueda con normalización de texto (tildes y mayúsculas)
 - Manejo de errores y excepciones
 
 **Integrante 2:** Rafael Ruiz  
 - Módulos `ordenar.py`, `estadistica.py`, `opciones_menu.py`
-- Sistema de paginación interactivo con navegación completa
 - Cálculo de estadísticas descriptivas
 - Formatos de visualización múltiples
 - Documentación interna y depuración
