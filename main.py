@@ -61,10 +61,6 @@ def main():
             break
         except Exception as e:
             print(f"Error inesperado: {e}")
-        
-        # Pausa para que el usuario vea los resultados
-        #input("\nPresione Enter para continuar...")
-
 
 if __name__ == "__main__":
     main()

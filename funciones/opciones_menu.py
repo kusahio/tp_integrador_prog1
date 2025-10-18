@@ -55,7 +55,7 @@ def opcion_filtrar_continente(paises):
             if resultados:
                 mostrar_con_paginacion(
                     resultados,
-                    titulo=f'Países en {continente}'
+                    titulo=f'Países en {continente.title()}'
                 )
             else:
                 print(f'No hay países en el continente "{continente}".')

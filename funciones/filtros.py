@@ -20,6 +20,7 @@ def buscar_pais(paises, nombre):
         if not isinstance(nombre, str):
             raise TypeError("El parámetro 'nombre' debe ser un string")
         
+        # Se utiliza una "list comprehension" para iterar sobre la lista y filtrar
         resultados = [pais for pais in paises if quitar_tildes(nombre.lower()) in quitar_tildes(pais["nombre"].lower())]
         return resultados
     
