@@ -384,7 +384,7 @@ Países que coinciden con "br"
 Mostrando 3 resultados
 ======================================================================
 
-  1. Brasil - América
+  1. Brasil - América del Sur
   2. Brunéi - Asia
 
 ----------------------------------------------------------------------
@@ -496,7 +496,7 @@ Seleccione una opción: s
 
 ---
 
-## 🛠️ Tecnologías y conceptos aplicados
+## Tecnologías y conceptos aplicados
 
 - **Python 3.10+**: Lenguaje de programación principal
 - **Módulos nativos**: `csv`, `os`, `unicodedata`

@@ -48,14 +48,14 @@ def mostrar_pagina(items, inicio_idx, titulo_pagina, tipo_formato='simple'):
         titulo_pagina (str): Título a mostrar en el encabezado
         tipo_formato (str): Tipo de formato para formatear_pais
     '''
-    print('\n' + '=' * 77)
+    print('\n' + '=' * 80)
     print(f'{titulo_pagina}')
-    print('=' * 77, '\n')
+    print('=' * 80, '\n')
     
     for i, item in enumerate(items, start=inicio_idx):
         print(formatear_pais(item, i, tipo_formato))
     
-    print('\n' + '-' * 77)
+    print('\n' + '-' * 80)
 
 
 def mostrar_con_paginacion(resultados, items_por_pagina=10, titulo='Resultados', tipo_formato='simple'):
@@ -129,7 +129,7 @@ def mostrar_con_paginacion(resultados, items_por_pagina=10, titulo='Resultados',
                 controles.append('S = Salir')
             
             print(' | '.join(controles))
-            print('-' * 77)
+            print('-' * 80)
 
             opcion = input('\nSeleccione una opción: ').lower().strip()
 
