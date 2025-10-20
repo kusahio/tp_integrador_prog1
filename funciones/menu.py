@@ -6,6 +6,9 @@ def mostrar_menu():
     print('4) Filtrar por rango de superficie')
     print('5) Ordenar países')
     print('6) Mostrar estadísticas')
-    print('7) Salir')
+    print('7) Agregar pais')
+    print('8) Editar pais')
+    print('9) Eliminar pais')
+    print('10) Salir')
     
     return input('\nIngrese un número de opción: ')
