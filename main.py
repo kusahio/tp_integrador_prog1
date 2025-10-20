@@ -45,7 +45,14 @@ def main():
                 case 6:
                     opcion_mostrar_estadisticas(paises)
 
-                
+                case 7:
+                    pass
+
+                case 8:
+                    pass
+
+                case 9:
+                    pass
 
                 case 10:
                     print("\n¡Gracias por usar el programa!")
