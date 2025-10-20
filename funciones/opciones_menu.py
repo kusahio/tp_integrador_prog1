@@ -147,7 +147,7 @@ def opcion_ordenar_paises(paises):
             
             claves_validas = ['nombre', 'poblacion', 'superficie']
             if clave not in claves_validas:
-                raise ValueError(f'Opción inválida. Use: {', '.join(claves_validas)}')
+                raise ValueError(f'Opción inválida. Use: {", ".join(claves_validas)}')
             
             desc = preguntar_si_no('¿Descendente? (s/n): ')
             

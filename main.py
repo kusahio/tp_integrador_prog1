@@ -13,6 +13,11 @@ from funciones.opciones_menu import (
 def main():
     # Cargar datos del archivo CSV
     paises = leer_csv("csv/paises_mundo.csv")
+    
+    #if not paises:
+    #    print("No se pudieron cargar datos. Revisa el archivo CSV.")
+    #    return
+
 
     # Bucle principal del menú
     while True:
@@ -40,8 +45,10 @@ def main():
                 
                 case 6:
                     opcion_mostrar_estadisticas(paises)
+
                 
-                case 7:
+
+                case 10:
                     print("\n¡Gracias por usar el programa!")
                     print("Saliendo...")
                     break
