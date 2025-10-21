@@ -6,16 +6,18 @@ from funciones.opciones_menu import (
     opcion_filtrar_poblacion,
     opcion_filtrar_superficie,
     opcion_ordenar_paises,
-    opcion_mostrar_estadisticas
+    opcion_mostrar_estadisticas,
+    opcion_agregar_pais
 )
 
 
 def main():
     # Cargar datos del archivo CSV
-    paises = leer_csv("csv/paises_mundo.csv")
+    ruta = 'csv/paises_mundo.csv'
+    paises = leer_csv(ruta)
     
     #if not paises:
-    #    print("No se pudieron cargar datos. Revisa el archivo CSV.")
+    #    print('No se pudieron cargar datos. Revisa el archivo CSV.')
     #    return
 
 
@@ -47,7 +49,7 @@ def main():
                     opcion_mostrar_estadisticas(paises)
 
                 case 7:
-                    pass
+                    opcion_agregar_pais(paises, ruta)
 
                 case 8:
                     pass
@@ -56,21 +58,21 @@ def main():
                     pass
 
                 case 10:
-                    print("\n¡Gracias por usar el programa!")
-                    print("Saliendo...")
+                    print('\n¡Gracias por usar el programa!')
+                    print('Saliendo...')
                     break
                 
                 case _:
                     print('\nLa opción ingresada no es válida')
         
         except ValueError as e:
-            print(f"Error: {e}")
+            print(f'Error: {e}')
         except KeyboardInterrupt:
-            print("\n\nPrograma interrumpido por el usuario (Ctrl+C)")
-            print("Saliendo...")
+            print('\n\nPrograma interrumpido por el usuario (Ctrl+C)')
+            print('Saliendo...')
             break
         except Exception as e:
-            print(f"Error inesperado: {e}")
+            print(f'Error inesperado: {e}')
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

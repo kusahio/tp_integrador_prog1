@@ -1,17 +1,10 @@
-import unicodedata
+from .utilidades import quitar_tildes
 
 """
 Funciones internas utilizadas en este archivo:
     isinstance(objeto, tipo): Sirve para verificar el tipo de dato de una variable u objeto
     raise: Sirve para lanzar una excepción (error) de forma manual
 """
-
-def quitar_tildes(texto):
-    return ''.join(
-        c for c in unicodedata.normalize('NFD', texto)
-        if unicodedata.category(c) != 'Mn'
-    )
-
 # Busca países por coincidencia parcial o exacta
 def buscar_pais(paises, nombre):
     try:

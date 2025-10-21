@@ -2,17 +2,11 @@ from .filtros import filtrar_por_continente, filtrar_por_rango, buscar_pais
 from .ordenar import ordenar_paises
 from .estadistica import mostrar_estadisticas
 from .paginador import mostrar_con_paginacion
-
+from .edicion import agregar_pais
+from .utilidades import preguntar_si_no, quitar_tildes
 '''
 Módulo con las funciones que manejan cada opción del menú principal.
 '''
-
-def preguntar_si_no(mensaje):
-    while True:
-        respuesta = input(mensaje).strip().lower()
-        if respuesta in ('s', 'n'):
-            return respuesta == 's'
-        print('Respuesta inválida. Ingrese "s" para sí o "n" para no.')
 
 def opcion_buscar_pais(paises):
     # Opcion 1: Búsqueda parcial con nombre
@@ -28,7 +22,7 @@ def opcion_buscar_pais(paises):
             resultados = buscar_pais(paises, nombre)
             
             if resultados:
-                mostrar_con_paginacion(resultados, titulo=f'Países que coinciden con "{nombre}"')
+                mostrar_con_paginacion(resultados, titulo=f'Países que coinciden con {nombre}')
             else:
                 print('No se encontraron coincidencias.')
         
@@ -58,7 +52,7 @@ def opcion_filtrar_continente(paises):
                     titulo=f'Países en {continente.title()}'
                 )
             else:
-                print(f'No hay países en el continente "{continente}".')
+                print(f'No hay países en el continente {continente}.')
         
         except Exception as e:
             print(f'\nAVISO: {e}. Intente nuevamente.\n')
@@ -147,7 +141,7 @@ def opcion_ordenar_paises(paises):
             
             claves_validas = ['nombre', 'poblacion', 'superficie']
             if clave not in claves_validas:
-                raise ValueError(f'Opción inválida. Use: {", ".join(claves_validas)}')
+                raise ValueError(f'Opción inválida. Use: {', '.join(claves_validas)}')
             
             desc = preguntar_si_no('¿Descendente? (s/n): ')
             
@@ -186,3 +180,108 @@ def opcion_mostrar_estadisticas(paises):
         mostrar_estadisticas(paises)
     except Exception as e:
         print(f'Error al mostrar estadísticas: {e}')
+
+def opcion_agregar_pais(paises, ruta_archivo):
+    # Opción 7: Agregar país
+    while True:
+        try:
+            print('\n==== Agregar nuevo país ====\n')
+            nombre = input('Ingrese nombre del país: ').strip().lower()
+            
+            if not nombre:
+                raise ValueError('El nombre no puede estar vacío')
+            
+            if any(caracter.isdigit() for caracter in nombre):
+                raise TypeError('El nombre no puede contener números')
+
+            if any(quitar_tildes(pais['nombre'].lower()) == quitar_tildes(nombre) for pais in paises):
+                raise ValueError(f'El país "{nombre.capitalize()}" ya existe!')
+
+            try:
+                poblacion = int(input('Ingrese la población del país: ').strip())
+                
+                if poblacion <= 0:
+                    raise ValueError('La población debe ser mayor a 0')
+            
+            except ValueError as e:
+                if 'invalid literal' in str(e):
+                    raise ValueError('La población debe ser un número entero')
+                raise
+            
+            try:
+                superficie = int(input('Ingrese la superficie del país (km²): ').strip())
+                
+                if superficie <= 0:
+                    raise ValueError('La superficie debe ser mayor a 0')
+            
+            except ValueError as e:
+                if 'invalid literal' in str(e):
+                    raise ValueError('La superficie debe ser un número entero')
+                raise
+
+            continentes = ['África', 'América del Norte', 'América del Sur', 'Asia', 'Europa', 'Oceanía']
+            print('\nContinentes disponibles:')
+            for i, continente in enumerate(continentes):
+                print(f'  {i+1}) {continente}')
+            
+            opcion = input('\nIngresa el número de opción del continente del país: ').strip()
+            
+            if not opcion:
+                raise ValueError('La opción no puede estar vacía')
+            
+            if not opcion.isdigit():
+                raise ValueError('Debes ingresar un número de opción válido')
+            
+            indice = int(opcion) - 1
+            if indice > len(continentes) - 1:
+                raise IndexError('La opción está fuera de rango')
+            if continentes[indice] not in continentes:
+                raise ValueError(f'El continente debe ser uno de: {", ".join(opcion.capitalize() for opcion in continentes)}')
+            
+            print('\n' + '-'*50)
+            print('Resumen del país que vas a agregar:')
+            print('-'*50)
+            print(f'  Nombre      : {nombre.title()}')
+            print(f'  Población   : {poblacion:,} habitantes')
+            print(f'  Superficie  : {superficie:,} km²')
+            print(f'  Continente  : {continentes[indice]}')
+            print('-'*50 + '\n')
+            
+            
+            if not preguntar_si_no('¿Confirma que desea agregar este país? (s/n): '):
+                print('\nOperación cancelada.')
+                break
+
+            nuevo_pais = {
+                'nombre': nombre.title(),
+                'poblacion': poblacion,
+                'superficie': superficie,
+                'continente': continentes[indice]
+            }
+            
+            if agregar_pais(paises, nuevo_pais, ruta_archivo):
+                print('\n✓ ¡País agregado exitosamente!')
+                print(f'  Total de países: {len(paises)}')
+            else:
+                print('\nNo se pudo agregar el país.')
+
+        except (ValueError, TypeError, IndexError) as e:
+            print(f'\nAVISO: {e}')
+            
+            if not preguntar_si_no('\n¿Desea intentar nuevamente? (s/n): '):
+                break
+            continue
+        
+        except KeyboardInterrupt:
+            print('\n\nOperación cancelada por el usuario.')
+            break
+        
+        except Exception as e:
+            print(f'\nError inesperado: {e}')
+            break
+        
+        if not preguntar_si_no('\n¿Desea agregar otro país? (s/n): '):
+            break
+
+def opcion_editar_pais(paises, ruta_archivo):
+    pass
