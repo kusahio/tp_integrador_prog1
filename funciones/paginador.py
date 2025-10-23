@@ -59,19 +59,7 @@ def mostrar_pagina(items, inicio_idx, titulo_pagina, tipo_formato='simple'):
 
 
 def mostrar_con_paginacion(resultados, items_por_pagina=10, titulo='Resultados', tipo_formato='simple'):
-    '''
-    Muestra resultados con paginación adaptativa según la cantidad de resultados.
-    
-    Comportamiento:
-    - ≤10 resultados (1 página): Solo muestra resultados, Enter para continuar
-    - 2 páginas: Enter (siguiente), A (anterior), S (salir)
-    - >2 páginas: Enter (siguiente), A (anterior), [Número] (ir a página), S (salir)
-    - En última página: Enter vuelve a página 1
-    
-    Ejemplo de uso:
-        mostrar_con_paginacion(paises, titulo='Países encontrados')
-        mostrar_con_paginacion(paises, tipo_formato='poblacion')
-    '''
+
     try:
         # Verificar si hay resultados para mostrar
         if not resultados:

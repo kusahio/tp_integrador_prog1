@@ -1,5 +1,6 @@
 import unicodedata
 
+
 def quitar_tildes(texto):
     return ''.join(
         c for c in unicodedata.normalize('NFD', texto)

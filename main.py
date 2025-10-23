@@ -7,7 +7,9 @@ from funciones.opciones_menu import (
     opcion_filtrar_superficie,
     opcion_ordenar_paises,
     opcion_mostrar_estadisticas,
-    opcion_agregar_pais
+    opcion_agregar_pais,
+    opcion_editar_pais,
+    opcion_eliminar_pais
 )
 
 
@@ -15,11 +17,6 @@ def main():
     # Cargar datos del archivo CSV
     ruta = 'csv/paises_mundo.csv'
     paises = leer_csv(ruta)
-    
-    #if not paises:
-    #    print('No se pudieron cargar datos. Revisa el archivo CSV.')
-    #    return
-
 
     # Bucle principal del menú
     while True:
@@ -52,10 +49,10 @@ def main():
                     opcion_agregar_pais(paises, ruta)
 
                 case 8:
-                    pass
+                    opcion_editar_pais(paises, ruta)
 
                 case 9:
-                    pass
+                    opcion_eliminar_pais(paises, ruta)
 
                 case 10:
                     print('\n¡Gracias por usar el programa!')

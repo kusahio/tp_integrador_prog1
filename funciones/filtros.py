@@ -61,3 +61,23 @@ def filtrar_por_rango(paises, campo, minimo, maximo):
     except (TypeError, ValueError) as e:
         print(f"\nAVISO: {e}")
         return []
+
+def buscar_exacto(paises, nombre):
+    try:
+        if not isinstance(paises, list):
+            raise TypeError("El parámetro 'paises' debe ser una lista")
+        if not isinstance(nombre, str):
+            raise TypeError("El parámetro 'nombre' debe ser un string")
+        
+        # Buscar coincidencia exacta
+        for pais in paises:            
+            if quitar_tildes(nombre.lower().strip()) == quitar_tildes(pais["nombre"].lower().strip()):
+                return pais
+        return None
+    
+    except KeyError:
+        print("\nAVISO: Algunos países no tienen el campo 'nombre'")
+        return None
+    except (TypeError, AttributeError) as e:
+        print(f"\nAVISO: {e}")
+        return None
