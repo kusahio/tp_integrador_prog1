@@ -1,6 +1,5 @@
 import unicodedata
 
-
 def quitar_tildes(texto):
     return ''.join(
         c for c in unicodedata.normalize('NFD', texto)
@@ -12,4 +11,4 @@ def preguntar_si_no(mensaje):
         respuesta = input(mensaje).strip().lower()
         if respuesta in ('s', 'n'):
             return respuesta == 's'
-        print('Respuesta inválida. Ingrese "s" para sí o "n" para no.')
+        print('Respuesta inválida. Ingresa "s" para sí o "n" para no.')

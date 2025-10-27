@@ -847,35 +847,116 @@ Seleccione una opción: s
 
 ---
 
-## Participación de los integrantes
+## Desarrollo del proyecto
 
-**Integrante 1:** Camilo Illanes  
-- Estructura general del proyecto  
-- Módulos `lectura.py`, `filtros.py`, `menu.py`, `paginador.py`
-- Sistema de paginación interactivo con navegación completa
-- Pruebas de funcionamiento y validaciones
-- Sistema de búsqueda con normalización de texto (tildes y mayúsculas)
-- Manejo de errores y excepciones
-- Módulos `edicion.py`, `auxiliares.py` y `utilidades.py`
-- Funcionalidades de agregar, editar y eliminar países
-- Sistema de validaciones para operaciones CRUD
-- Persistencia de datos en CSV con manejo de errores
+**Desarrollador:** Camilo Illanes
 
-**Integrante 2:** Rafael Ruiz  
-- Módulos `ordenar.py`, `estadistica.py`, `opciones_menu.py`
-- Cálculo de estadísticas descriptivas
-- Formatos de visualización múltiples
-- Documentación interna y depuración
-- Integración de nuevas opciones al menú principal
-- Testing de funcionalidades de edición
+### Arquitectura y estructura del código
 
-**Trabajo colaborativo:**
-- Integración y testing del sistema completo
-- Diseño de la interfaz de usuario
-- Validaciones exhaustivas en todas las funciones
-- Preparación de la presentación y documentación
-- Pruebas de persistencia de datos
-- Validación de integridad en operaciones CRUD
+El proyecto fue diseñado siguiendo principios de programación modular, separando las responsabilidades en diferentes módulos funcionales:
+
+**Módulos principales:**
+- **`lectura.py`**: Gestión de lectura y escritura del archivo CSV
+- **`filtros.py`**: Implementación de filtros por continente, población y superficie
+- **`ordenar.py`**: Algoritmos de ordenamiento personalizados
+- **`estadistica.py`**: Cálculo de estadísticas descriptivas
+- **`paginador.py`**: Sistema de paginación adaptativo con navegación interactiva
+- **`menu.py`**: Interfaz de usuario y control de flujo principal
+- **`opciones_menu.py`**: Lógica de cada opción del menú
+- **`edicion.py`**: Funcionalidades CRUD (Create, Update, Delete)
+- **`auxiliares.py`**: Funciones auxiliares de validación y normalización
+- **`utilidades.py`**: Herramientas de formato y presentación
+
+### Características implementadas
+
+**Sistema de búsqueda y filtrado:**
+- Búsqueda por coincidencia parcial con normalización de texto
+- Filtros por continente con validación de entrada
+- Filtros por rangos numéricos con validación de lógica
+- Sistema de ordenamiento multinivel (nombre, población, superficie)
+
+**Sistema CRUD completo:**
+- **Create**: Agregar nuevos países con validación exhaustiva
+  - Verificación de duplicados insensible a tildes
+  - Validación de tipos de datos
+  - Normalización automática de nombres
+  - Confirmación con resumen antes de guardar
+
+- **Read**: Múltiples formas de consulta
+  - Búsqueda por nombre
+  - Filtrado por múltiples criterios
+  - Visualización de estadísticas
+
+- **Update**: Edición flexible de registros
+  - Edición individual de campos
+  - Edición completa del registro
+  - Visualización de cambios antes de confirmar
+  - Validación de integridad de datos
+
+- **Delete**: Eliminación segura de registros
+  - Búsqueda exacta normalizada
+  - Doble confirmación
+  - Reversión automática en caso de error
+  - Actualización del contador de registros
+
+**Sistema de paginación inteligente:**
+- Adaptación automática según cantidad de resultados
+- Tres modos de operación (simple, básico, completo)
+- Navegación circular en última página
+- Controles contextuales según posición actual
+- Salto directo a página específica (en modo completo)
+
+**Validaciones y manejo de errores:**
+- Validación de tipos de datos en todas las entradas
+- Validación de rangos lógicos
+- Prevención de duplicados
+- Manejo de campos vacíos
+- Mensajes de error descriptivos
+- Opciones de reintento sin perder contexto
+
+**Persistencia de datos:**
+- Lectura robusta del archivo CSV
+- Escritura segura con validación
+- Creación automática si no existe el archivo
+- Reversión de cambios en caso de error
+- Manejo de errores de I/O
+
+### Tecnologías y técnicas aplicadas
+
+**Lenguaje y herramientas:**
+- Python 3.10+ con características modernas
+- Módulos nativos: `csv`, `os`, `unicodedata`
+- Match-case para control de flujo (Python 3.10+)
+
+**Estructuras de datos:**
+- Listas para almacenamiento de países
+- Diccionarios para representación de registros
+- List comprehensions para filtrado eficiente
+
+**Técnicas de programación:**
+- Funciones de orden superior con lambdas
+- Modularización y separación de responsabilidades
+- Manejo robusto de excepciones
+- Normalización de texto con Unicode
+- Algoritmos de búsqueda y ordenamiento
+- Validación de entrada en múltiples niveles
+
+**Patrones de diseño aplicados:**
+- Separación de lógica de negocio y presentación
+- Funciones puras sin efectos secundarios
+- Reutilización de código mediante funciones auxiliares
+- Validación centralizada
+- Manejo consistente de errores
+
+### Proceso de desarrollo
+
+1. **Análisis de requisitos**: Identificación de todas las funcionalidades necesarias
+2. **Diseño de arquitectura**: Planificación de módulos y sus responsabilidades
+3. **Implementación incremental**: Desarrollo por características
+4. **Testing continuo**: Validación de cada funcionalidad implementada
+5. **Refinamiento**: Mejora de validaciones y mensajes de usuario
+6. **Optimización**: Ajuste del sistema de paginación y performance
+7. **Documentación**: Preparación de ejemplos y casos de uso
 
 ---
 
@@ -972,13 +1053,41 @@ Seleccione una opción: s
 
 ## Conclusión
 
-Este proyecto permitió afianzar los conocimientos de estructuras de datos, modularización y buenas prácticas en Python, aplicando un caso real de manipulación de datos con un **sistema CRUD completo**.
+Este proyecto representa una aplicación completa de gestión de datos desarrollada íntegramente en Python, implementando un **sistema CRUD funcional** con validaciones robustas y una interfaz de usuario intuitiva.
 
-El trabajo en equipo y la planificación modular facilitaron la integración de funciones complejas como ordenamientos, estadísticas y **operaciones de persistencia de datos** sin perder legibilidad ni control del flujo principal.
+### Logros técnicos
 
-La implementación de las funcionalidades de **agregar, editar y eliminar países** añadió una capa completa de gestión de datos, convirtiendo el sistema en una aplicación funcional de administración de información con validaciones robustas y manejo seguro de archivos.
+**Arquitectura modular:** El código está organizado en módulos especializados que facilitan el mantenimiento y la escalabilidad del sistema. Cada módulo tiene una responsabilidad clara y bien definida.
+
+**Sistema de paginación adaptativo:** Una de las características más destacadas es el sistema de paginación que se adapta inteligentemente según la cantidad de resultados, ofreciendo tres modos diferentes de navegación para optimizar la experiencia del usuario.
+
+**Gestión completa de datos:** La implementación del CRUD completo permite no solo consultar información, sino también modificarla de manera segura con validaciones exhaustivas, confirmaciones múltiples y reversión automática ante errores.
+
+**Validación robusta:** Cada entrada del usuario es validada en múltiples niveles, desde el tipo de dato hasta la lógica de negocio, previniendo errores de ejecución y garantizando la integridad de los datos.
+
+**Normalización de texto:** El sistema maneja correctamente caracteres especiales, tildes y diferentes formas de capitalización, haciendo la búsqueda y validación más flexible y amigable.
+
+### Aprendizajes aplicados
+
+Este proyecto permitió consolidar conocimientos fundamentales de programación:
+
+- **Estructuras de datos:** Uso eficiente de listas y diccionarios
+- **Modularización:** Separación de responsabilidades en módulos independientes
+- **Algoritmos:** Implementación de búsqueda, filtrado y ordenamiento
+- **Manejo de archivos:** Lectura y escritura segura de CSV
+- **Validación de datos:** Múltiples niveles de validación y manejo de errores
+- **Experiencia de usuario:** Diseño de una interfaz de consola intuitiva y amigable
+- **Persistencia:** Guardado automático con mecanismos de reversión
+- **Buenas prácticas:** Código limpio, comentado y fácil de mantener
+
+El sistema resultante es una herramienta funcional que demuestra la aplicación práctica de conceptos de programación en un caso de uso real, con énfasis en la robustez, usabilidad y mantenibilidad del código.
 
 ---
+
+## Repositorio
+
+**Autor:** Camilo Illanes  
+**Repositorio:** [https://github.com/kusahio/tp_integrador_prog1](https://github.com/kusahio/tp_integrador_prog1)
 
 **Materia:** Programación 1  
 **Carrera:** Tecnicatura Universitaria en Programación  
