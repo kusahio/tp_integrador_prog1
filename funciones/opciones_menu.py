@@ -473,7 +473,6 @@ def opcion_editar_pais(paises, ruta_archivo):
             print(f'\nError inesperado: {e}')
             break
 
-
 def opcion_eliminar_pais(paises, ruta_archivo):
     # Opción 9: Eliminar país
     while True:

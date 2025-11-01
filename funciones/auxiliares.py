@@ -1,4 +1,4 @@
-from .utilidades import preguntar_si_no
+from .utilidades import preguntar_si_no, verificar_string
 from .filtros import buscar_exacto
 
 def buscar_y_seleccionar_pais(paises, accion='editar'):
@@ -10,8 +10,11 @@ def buscar_y_seleccionar_pais(paises, accion='editar'):
         print('\nEl nombre no puede estar vacío.')
         return None, None
 
+    if not verificar_string(nombre_buscar):
+        return None, None
     # Busca coincidencia exacta (según tu función buscar_exacto)
     pais_encontrado = buscar_exacto(paises, nombre_buscar)
+
 
     # Si no encuentra el país, informa y finaliza
     if pais_encontrado is None:
@@ -72,7 +75,7 @@ def solicitar_nuevo_nombre(paises, pais_actual):
             continue
 
         # Valida que no contenga números
-        if any(c.isdigit() for c in nuevo_nombre):
+        if any(caracter.isdigit() for caracter in nuevo_nombre):
             print('El nombre no puede contener números.')
             continue
         

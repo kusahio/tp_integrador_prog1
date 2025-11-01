@@ -1092,3 +1092,5 @@ El sistema resultante es una herramienta funcional que demuestra la aplicación 
 **Materia:** Programación 1  
 **Carrera:** Tecnicatura Universitaria en Programación  
 **Institución:** UTN – Universidad Tecnológica Nacional - Facultad Regional Mendoza
+
+**[Link al vídeo](https://drive.google.com/file/d/1O1KFWHggRQ-dD8Ll-TSDgk_94_KSkWox/view?usp=drive_link)**
